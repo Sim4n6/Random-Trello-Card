@@ -1,6 +1,6 @@
 from trello import TrelloClient
 import random
-from flask import Flask, render_template_string
+from flask import Flask, render_template
 
 # My API KEY
 from keys import TRELLO_APP_KEY, TRELLO_USER_TOKEN, API_SECRET
@@ -30,8 +30,7 @@ def index():
 
 	# Random card of the list
 	random_card = random.choice(lst_cards)
-	return render_template_string(
-		"""<a href='{{ random_card.url }}'>{{ random_card.name }}</a>""", random_card=random_card)
+	return render_template("index.html", random_card=random_card)
 
 
 if __name__ == '__main__':
