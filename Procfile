@@ -1,1 +1,1 @@
-web: python Random-Trello-Card.py
+worker: python Random-Trello-Card.py --log-file -
