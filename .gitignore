@@ -105,6 +105,3 @@ venv.bak/
 
 # pycharm files
 .idea/
-
-# keys of My Trello API
-keys.py

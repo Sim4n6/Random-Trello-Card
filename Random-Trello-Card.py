@@ -28,12 +28,14 @@ def index():
 	todos_lst_cards = lst_brd_lists[0]
 	lst_cards = todos_lst_cards.list_cards()
 
-	# Random card of the list
+	# Generate a random card of the list
 	random_card = random.choice(lst_cards)
+
+	# render a template with random_card details
 	return render_template("index.html", random_card=random_card)
 
 
 if __name__ == '__main__':
 
 	app.config['ENV'] = "development"
-	app.run(debug=True)
+	app.run(debug=True, port=33507)
