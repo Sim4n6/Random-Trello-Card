@@ -1,2 +1,2 @@
-web: python Random-Trello-Card.py ; gunicorn -w 4 -b 127.0.0.1:33507 random-trello-card
+web: gunicorn random-trello-card:app --bind 0.0.0.0:8000
 
