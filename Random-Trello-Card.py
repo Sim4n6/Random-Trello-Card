@@ -6,7 +6,7 @@ import json
 import subprocess
 
 # My API KEY
-from keys import TRELLO_APP_KEY, TRELLO_USER_TOKEN, API_SECRET
+from keys import TRELLO_APP_KEY, TRELLO_USER_TOKEN, API_SECRET, CONSUMER_KEY, ACCESS_TOKEN
 
 client = TrelloClient(
 	api_key=TRELLO_APP_KEY,
@@ -20,32 +20,32 @@ app = Flask(__name__)
 
 def get_pocket():
 
-	consumer_key = "83185-696ae1741f775407425ba954"
 
-	# Retrieve request_token
-	r2 = requests.get('https://getpocket.com/v3/oauth/request?consumer_key=' + consumer_key + '&redirect_uri=MyPocket123:authorizationFinished')
-	code = r2.content
-	request_token = str(code).split("=")[1].strip("'")
-	print("request_token: ", request_token)
 
-	# Authorization de lapp a mon compte
-	headers = {
-		'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
-	}
-
-	r = requests.get('https://getpocket.com/auth/authorize?request_token=' + request_token + '&redirect_uri=www.google.fr', headers=headers, allow_redirects=True)
-	print("status_code:", r.status_code, " for ", r.url)
+	# # Retrieve request_token
+	# r2 = requests.get('https://getpocket.com/v3/oauth/request?consumer_key=' + consumer_key + '&redirect_uri=MyPocket123:authorizationFinished')
+	# code = r2.content
+	# request_token = str(code).split("=")[1].strip("'")
+	# print("request_token: ", request_token)
+	#
+	# # Authorization de lapp a mon compte
+	# headers = {
+	# 	'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+	# }
+	#
+	# r = requests.get('https://getpocket.com/auth/authorize?request_token=' + request_token + '&redirect_uri=www.google.fr', headers=headers, allow_redirects=True)
+	# print("status_code:", r.status_code, " for ", r.url)
 	# code = subprocess.call(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", r.url])
-
-	# get access token
-	r3 = requests.get('https://getpocket.com/v3/oauth/authorize?consumer_key=' + consumer_key + '&code=' + request_token, allow_redirects=True)
-	code = r3.content
-	print("+++", code)
-	access_token = "" # str(code).split("=")[1].split("&")[0]
+	#
+	# # get access token
+	# r3 = requests.get('https://getpocket.com/v3/oauth/authorize?consumer_key=' + consumer_key + '&code=' + request_token, allow_redirects=True)
+	# code = r3.content
+	# print("+++", code)
+	# access_token = str(code).split("=")[1].split("&")[0]
 	# print("access_token", access_token)
 
 	# Get all data
-	r4 = requests.get('https://getpocket.com/v3/get?consumer_key=' + consumer_key + '&access_token=' + access_token)
+	r4 = requests.get('https://getpocket.com/v3/get?consumer_key=' + CONSUMER_KEY + '&access_token=' + ACCESS_TOKEN)
 	code = r4.content
 	print(">>>", code)
 
