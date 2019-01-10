@@ -105,3 +105,6 @@ venv.bak/
 
 # pycharm files
 .idea/
+
+# No Need to track my API keys :)
+keys.py
