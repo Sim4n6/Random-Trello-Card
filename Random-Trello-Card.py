@@ -3,12 +3,16 @@ from trello import TrelloClient
 import random
 from flask import Flask, render_template
 import requests
+import os
 
 # My TRELLO API KEYs
-from keys import TRELLO_APP_KEY, TRELLO_USER_TOKEN, TRELLO_API_SECRET
+TRELLO_APP_KEY = os.environ['TRELLO_APP_KEY']
+TRELLO_USER_TOKEN = os.environ['TRELLO_USER_TOKEN']
+TRELLO_API_SECRET = os.environ['TRELLO_API_SECRET']
 
 # My POCKET API KEYs
-from keys import CONSUMER_KEY, ACCESS_TOKEN
+CONSUMER_KEY = os.environ['CONSUMER_KEY']
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 
 client_trello = TrelloClient(
 	api_key=TRELLO_APP_KEY,
