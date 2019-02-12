@@ -48,6 +48,8 @@ def random():
 	print("--->", request.method)
 	print("-+-->", request.path)
 	print("----", request.query_string)
+	for arg in vars(request):
+		print("* ", arg)
 
 	# Get Random Trello Card :
 	random_card = get_random_trello_card()
