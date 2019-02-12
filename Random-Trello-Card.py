@@ -8,7 +8,7 @@ import os
 # My TRELLO API KEYs
 TRELLO_APP_KEY = os.environ['TRELLO_APP_KEY'] # OK
 
-TRELLO_USER_TOKEN = os.environ['TRELLO_USER_TOKEN']
+TRELLO_USER_TOKEN = ""
 TRELLO_API_SECRET = os.environ['TRELLO_API_SECRET']
 
 client_trello = TrelloClient(
@@ -66,8 +66,9 @@ def index():
 def returned_token():
 
 	print("--->", request.method)
-	print("--->", request.path)
+	print("-+-->", request.path)
 	print("--->", request.args["token"])
+	TRELLO_USER_TOKEN = request.args["token"]
 	return redirect(url_for('random'))
 
 
