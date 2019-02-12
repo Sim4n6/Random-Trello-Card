@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Random Trello Card</title>
+</head>
+<body>
+    <div>
+        <fieldset>
+            <legend>Random Trello Card :</legend>
+            <center>
+                <a href='{{ random_card.url }}' target="_blank">
+                    {{ random_card.name }}
+                </a>
+            </center>
+        </fieldset>
+    </div>
+</body>
+</html>
