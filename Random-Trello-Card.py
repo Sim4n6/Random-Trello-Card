@@ -41,9 +41,13 @@ def get_random_trello_card():
 	return random_card
 
 
-@app.route("/random")
+@app.route("/random", methods=['POST', 'GET'])
 def random():
 	"""  Render an html page containing the link to the random card from to-do list """
+
+	print("--->", request.method)
+	print("-+-->", request.path)
+	print("----", request.query_string)
 
 	# Get Random Trello Card :
 	random_card = get_random_trello_card()
@@ -58,21 +62,8 @@ def index():
 
 	button_details = dict()
 	button_details["name"] = "Connect button"
-	button_details["url"] = "https://trello.com/1/authorize?callback_method=fragment&expiration=never&name=Random+Card&scope=read&return_url=https://random-trello-card.herokuapp.com/return_url&response_type=token&key=" + TRELLO_APP_KEY
+	button_details["url"] = "https://trello.com/1/authorize?callback_method=fragment&expiration=never&name=Random+Card&scope=read&return_url=https://random-trello-card.herokuapp.com/random&response_type=token&key=" + TRELLO_APP_KEY
 	return render_template("index.html", button=button_details)
-
-
-@app.route("/return_url", methods=['POST', 'GET'])
-def returned_token():
-
-	print("--->", request.method)
-	print("-+-->", request.path)
-	# for k, v in request.args.items():
-	# 	print("--->", k, v)
-	# token = request.args["full_path"].split("#")[1].split("=")[1]
-	# print("--->", token)
-	# TRELLO_USER_TOKEN = token
-	return redirect(url_for('random'))
 
 
 if __name__ == '__main__':
