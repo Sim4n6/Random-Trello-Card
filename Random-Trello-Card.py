@@ -41,8 +41,8 @@ def get_random_trello_card():
 	return random_card
 
 
-@app.route("/random#<data>", methods=['POST', 'GET'])
-def random(data):
+@app.route("/random", methods=['POST', 'GET'])
+def random():
 	"""  Render an html page containing the link to the random card from to-do list """
 
 	print("--->", request.method)
@@ -63,7 +63,7 @@ def index():
 
 	button_details = dict()
 	button_details["name"] = "Connect button"
-	button_details["url"] = "https://trello.com/1/authorize?callback_method=fragment&expiration=never&name=Random+Card&scope=read&return_url=https://random-trello-card.herokuapp.com/random&response_type=token&key=" + TRELLO_APP_KEY
+	button_details["url"] = "https://trello.com/1/authorize?callback_method=postMessage&expiration=never&name=Random+Card&scope=read&return_url=https://random-trello-card.herokuapp.com/random&response_type=token&key=" + TRELLO_APP_KEY
 	return render_template("index.html", button=button_details)
 
 
