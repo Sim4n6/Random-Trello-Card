@@ -1,18 +1,15 @@
 import json
 from trello import TrelloClient
 import random
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import requests
 import os
 
 # My TRELLO API KEYs
-TRELLO_APP_KEY = os.environ['TRELLO_APP_KEY']
+TRELLO_APP_KEY = os.environ['TRELLO_APP_KEY'] # OK
+
 TRELLO_USER_TOKEN = os.environ['TRELLO_USER_TOKEN']
 TRELLO_API_SECRET = os.environ['TRELLO_API_SECRET']
-
-# My POCKET API KEYs
-CONSUMER_KEY = os.environ['CONSUMER_KEY']
-ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 
 client_trello = TrelloClient(
 	api_key=TRELLO_APP_KEY,
@@ -22,45 +19,6 @@ client_trello = TrelloClient(
 )
 
 app = Flask(__name__)
-
-
-def get_random_pocket():
-	""" Get a Random Pocket post """
-
-	# # Retrieve request_token
-	# r2 = requests.get('https://getpocket.com/v3/oauth/request?consumer_key=' + consumer_key + '&redirect_uri=MyPocket123:authorizationFinished')
-	# code = r2.content
-	# request_token = str(code).split("=")[1].strip("'")
-	# print("request_token: ", request_token)
-	#
-	# # Authorization de lapp a mon compte
-	# headers = {
-	# 	'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
-	# }
-	#
-	# r = requests.get('https://getpocket.com/auth/authorize?request_token=' + request_token + '&redirect_uri=www.google.fr', headers=headers, allow_redirects=True)
-	# print("status_code:", r.status_code, " for ", r.url)
-	# code = subprocess.call(["C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", r.url])
-	#
-	# # get access token
-	# r3 = requests.get('https://getpocket.com/v3/oauth/authorize?consumer_key=' + consumer_key + '&code=' + request_token, allow_redirects=True)
-	# code = r3.content
-	# print("+++", code)
-	# access_token = str(code).split("=")[1].split("&")[0]
-	# print("access_token", access_token)
-
-	# Get all data
-	r4 = requests.get('https://getpocket.com/v3/get?consumer_key=' + CONSUMER_KEY + '&access_token=' + ACCESS_TOKEN)
-	code = r4.content
-
-	# loads json data
-	loaded_json = json.loads(code)
-
-	# random saved post
-	list_saved = [k for k in loaded_json["list"].keys()]
-	random_saved_key = random.choice(list_saved)
-
-	return loaded_json["list"][random_saved_key]['given_url']
 
 
 def get_random_trello_card():
@@ -83,18 +41,34 @@ def get_random_trello_card():
 	return random_card
 
 
-@app.route("/")
-def index():
+@app.route("/random")
+def random():
+	"""  Render an html page containing the link to the random card from to-do list """
+
 	# Get Random Trello Card :
 	random_card = get_random_trello_card()
 
-	# Get Random Pocket informations:
-	pocket_url = get_random_pocket()
-
 	# render a template with random_card details
-	return render_template("index.html", random_card=random_card, pocket_url=pocket_url)
+	return render_template("random_card.html", random_card=random_card)
 
+
+@app.route("/")
+@app.route("/index")
+def index():
+
+	api = dict()
+	api["name"] = "connect button"
+	api["url"] = "https://trello.com/1/authorize?expiration=never&name=RandomCard&scope=read&return_url=return_url&response_type=token&key=" + TRELLO_APP_KEY
+	return render_template("index.html", api=api)
+
+
+@app.route("/return_url", methods=['POST'])
+def returned_token():
+
+	print("--->", request.method)
+	return random()
 
 if __name__ == '__main__':
+
 	app.config['ENV'] = "development"
 	app.run(debug=True)
