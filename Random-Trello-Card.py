@@ -1,6 +1,6 @@
 import json
 from trello import TrelloClient
-import random
+from random import choice
 from flask import Flask, render_template, request, redirect, url_for
 import requests
 import os
@@ -36,7 +36,7 @@ def get_random_trello_card():
 	lst_cards = todos_lst_cards.list_cards()
 
 	# Generate a random card of the list
-	random_card = random.choice(lst_cards)
+	random_card = choice(lst_cards)
 
 	return random_card
 
