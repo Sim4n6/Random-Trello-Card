@@ -1,7 +1,7 @@
 import json
 from trello import TrelloClient
 import random
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import requests
 import os
 
@@ -66,7 +66,9 @@ def index():
 def returned_token():
 
 	print("--->", request.method)
-	return random()
+	for arg in request.args:
+		print("--->", arg)
+	return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
