@@ -58,7 +58,7 @@ def index():
 
 	button_details = dict()
 	button_details["name"] = "Connect button"
-	button_details["url"] = "https://trello.com/1/authorize?callback_method=postMessage&expiration=never&name=Random+Card&scope=read&return_url=https://random-trello-card.herokuapp.com/return_url&response_type=token&key=" + TRELLO_APP_KEY
+	button_details["url"] = "https://trello.com/1/authorize?callback_method=fragment&expiration=never&name=Random+Card&scope=read&return_url=https://random-trello-card.herokuapp.com/return_url&response_type=token&key=" + TRELLO_APP_KEY
 	return render_template("index.html", button=button_details)
 
 
