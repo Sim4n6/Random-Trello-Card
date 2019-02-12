@@ -67,7 +67,7 @@ def returned_token():
 
 	print("--->", request.method)
 	print("--->", request.path)
-	print("--->", request.token)
+	print("--->", request.args["token"])
 	return redirect(url_for('random'))
 
 
