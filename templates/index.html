@@ -11,7 +11,7 @@
         <fieldset>
             <legend>Random Trello Card :</legend>
             <center>
-                <a href='{{ api.url }}' target="_blank">
+                <a href='{{ api.url | safe }}' target="_blank">
                     <button name="connect" type="button" autofocus>{{ api.name }}</button>
                 </a>
 
