@@ -41,14 +41,14 @@ def get_random_trello_card():
 	return random_card
 
 
-@app.route("/random", methods=['POST', 'GET'])
-def random():
+@app.route("/random#<data>", methods=['POST', 'GET'])
+def random(data):
 	"""  Render an html page containing the link to the random card from to-do list """
 
 	print("--->", request.method)
 	print("-+-->", request.path)
 	print("----", request.query_string)
-	print("///", request.data)
+	print("///", data)
 
 	# Get Random Trello Card :
 	random_card = get_random_trello_card()
