@@ -58,17 +58,17 @@ def index():
 
 	api = dict()
 	api["name"] = "Connect button"
-	api["url"] = "https://trello.com/1/authorize?callback_method=postMessage&expiration=never&name=RandomCard&scope=read&return_url=/return_url&response_type=token&key=" + TRELLO_APP_KEY
+	api["url"] = "https://trello.com/1/authorize?callback_method=postMessage&expiration=never&name=RandomCard&scope=read&return_url=https://random-trello-card.herokuapp.com/return_url&response_type=token&key=" + TRELLO_APP_KEY
 	return render_template("index.html", api=api)
 
 
-@app.route("/return_url", methods=['POST'])
+@app.route("/return_url", methods=['POST', 'GET'])
 def returned_token():
 
 	print("--->", request.method)
 	return random()
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
 	app.config['ENV'] = "development"
 	app.run(debug=True)
