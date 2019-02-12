@@ -57,8 +57,8 @@ def random():
 def index():
 
 	api = dict()
-	api["name"] = "connect button"
-	api["url"] = "https://trello.com/1/authorize?expiration=never&name=RandomCard&scope=read&return_url=return_url&response_type=token&key=" + TRELLO_APP_KEY
+	api["name"] = "Connect button"
+	api["url"] = "https://trello.com/1/authorize?expiration=never&name=RandomCard&scope=read&return_url=/return_url&response_type=token&key=" + TRELLO_APP_KEY
 	return render_template("index.html", api=api)
 
 
