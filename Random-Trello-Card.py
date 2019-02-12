@@ -67,7 +67,8 @@ def returned_token():
 
 	print("--->", request.method)
 	print("-+-->", request.path)
-	print("--->", request.args["full_path"])
+	for k, v in request.args.items():
+		print("--->", k, v)
 	token = request.args["full_path"].split("#")[1].split("=")[1]
 	print("--->", token)
 	TRELLO_USER_TOKEN = token
