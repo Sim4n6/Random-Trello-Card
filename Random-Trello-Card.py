@@ -58,7 +58,7 @@ def index():
 
 	api = dict()
 	api["name"] = "Connect button"
-	api["url"] = "https://trello.com/1/authorize?callback_method=fragment&expiration=never&name=RandomCard&scope=read&return_url=https://random-trello-card.herokuapp.com/return_url?&response_type=token&key=" + TRELLO_APP_KEY
+	api["url"] = "https://trello.com/1/authorize?callback_method=fragment&expiration=never&name=RandomCard&scope=read&return_url=https://random-trello-card.herokuapp.com/return_url&response_type=token&key=" + TRELLO_APP_KEY
 	return render_template("index.html", api=api)
 
 
@@ -67,8 +67,10 @@ def returned_token():
 
 	print("--->", request.method)
 	print("-+-->", request.path)
-	print("--->", request.args["token"])
-	TRELLO_USER_TOKEN = request.args["token"]
+	print("--->", request.args["full_path"])
+	token = request.args["full_path"].split("#")[1].split("=")[1]
+	print("--->", token)
+	TRELLO_USER_TOKEN = token
 	return redirect(url_for('random'))
 
 
