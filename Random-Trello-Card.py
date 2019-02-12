@@ -66,9 +66,8 @@ def index():
 def returned_token():
 
 	print("--->", request.method)
-	for arg in request.args:
-		print("--->", arg)
-	return redirect(url_for('index'))
+	print("--->", request.path)
+	return redirect(url_for('random'))
 
 
 if __name__ == '__main__':
