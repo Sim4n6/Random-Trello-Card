@@ -57,14 +57,27 @@ def random():
 	return render_template("random_card.html", random_card=random_card)
 
 
-@app.route("/")
-@app.route("/index")
+@app.route("/", methods=['GET', 'POST'])
 def index():
 
-	button_details = dict()
-	button_details["name"] = "Connect button"
-	button_details["url"] = "https://trello.com/1/authorize?callback_method=postMessage&expiration=never&name=Random+Card&scope=read&return_url=https://random-trello-card.herokuapp.com/random&response_type=token&key=" + TRELLO_APP_KEY
-	return render_template("index.html", button=button_details)
+	if request.method == 'GET':
+		button_details = dict()
+		button_details["name"] = "Connect button"
+		button_details["url"] = "https://trello.com/1/authorize?callback_method=postMessage&expiration=never&name=Random+Card&scope=read&return_url=https://random-trello-card.herokuapp.com/&response_type=token&key=" + TRELLO_APP_KEY
+		return render_template("index.html", button=button_details)
+	elif request.method == 'POST':
+		print("--->", request.method)
+		print("-+-->", request.path)
+		print("----", request.query_string)
+		print("///", "data")
+
+		# Get Random Trello Card :
+		random_card = get_random_trello_card()
+
+		# render a template with random_card details
+		return render_template("random_card.html", random_card=random_card)
+	else:
+		print("else---")
 
 
 if __name__ == '__main__':
